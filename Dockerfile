@@ -28,6 +28,13 @@ RUN set -ex \
     && curl -L https://github.com/catalyst/moodle-tool_forcedcache/archive/${MOODLE_TOOL_FORCEDCACHE_COMMIT}.tar.gz | tar -C /var/www/html/admin/tool/forcedcache --strip-components=1 -xz \
     && chown -R www-data:www-data /var/www/html
 
+# Apply page_compression.patch (MDL-69196)
+COPY page_compression.patch /tmp/page_compression.patch
+RUN set -ex \
+    && cd /var/www/html \
+    && patch -p1 < /tmp/page_compression.patch \
+    && rm /tmp/page_compression.patch
+
 # Configure PHP/Apache
 COPY php.ini /usr/local/etc/php/php.ini
 COPY moodle.conf /etc/apache2/sites-available/moodle.conf

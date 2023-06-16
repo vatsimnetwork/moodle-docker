@@ -1,0 +1,42 @@
+commit d214c89dfe5886f4831cf7a153caa2e5053dfaaa
+Author: Jeff Hopper <jeff@jhbsa.com>
+Date:   Thu Jul 2 21:01:57 2020 +0000
+
+    page compression support
+
+diff --git a/lib/dml/mysqli_native_moodle_database.php b/lib/dml/mysqli_native_moodle_database.php
+index 4bfa04cb263..d917f84acb2 100644
+--- a/lib/dml/mysqli_native_moodle_database.php
++++ b/lib/dml/mysqli_native_moodle_database.php
+@@ -390,6 +390,9 @@ class mysqli_native_moodle_database extends moodle_database {
+             // Other engines are not supported, most probably not compatible.
+             $this->compressedrowformatsupported = false;
+ 
++	} else if ($this->is_compression_default_enabled()) {
++            $this->compressedrowformatsupported = false;
++
+         } else if (!$this->is_file_per_table_enabled()) {
+             $this->compressedrowformatsupported = false;
+ 
+@@ -404,6 +407,21 @@ class mysqli_native_moodle_database extends moodle_database {
+         return $this->compressedrowformatsupported;
+     }
+ 
++	/**
++     * Check the database to see if innodb_compression_default is on.
++     *
++     * @return bool True if on otherwise false.
++     */
++    public function is_compression_default_enabled() {
++        if ($compressiondefault = $this->get_record_sql("SHOW VARIABLES LIKE 'innodb_compression_default'")) {
++            if ($compressiondefault->value == 'ON') {
++                return true;
++            }
++        }
++        return false;
++    }
++
++
+     /**
+      * Check the database to see if innodb_file_per_table is on.
+      *
