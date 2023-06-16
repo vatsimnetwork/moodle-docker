@@ -24,6 +24,6 @@ You'll also need to configure some way of running Moodle's cron job, such as a c
 * `REDIS_HOST` - The hostname of the Redis server. Defaults to `127.0.0.1`.
 * `REDIS_PORT` - The port of the Redis server. Defaults to `6379`.
 * `REDIS_PASSWORD` - The password to use when connecting to the Redis server. Defaults to an empty string.
-* `DATA_ROOT` - The path to the Moodle data directory. Defaults to `/var/www/moodledata`.
+* `DATA_ROOT` - The path to the Moodle data directory. Defaults to an empty string.
 * `UPGRADE_KEY` - The upgrade key to use when upgrading Moodle. Defaults to null, thus disabling the feature.
 * `SITE_ADMINS` - The IDs of the users to make site administrators, separated by commas. Defaults to null.

@@ -122,7 +122,7 @@ $CFG->session_redis_prefix = 'mdl_session_';
 
 $CFG->wwwroot = getenv('WWW_ROOT') ?: 'http://localhost';
 
-$CFG->dataroot = getenv('DATA_ROOT') ?: '/var/www/moodledata';
+$CFG->dataroot = getenv('DATA_ROOT') ?: '';
 $CFG->directorypermissions = 0777;
 
 /*
