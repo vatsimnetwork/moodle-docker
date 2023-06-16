@@ -19,7 +19,7 @@ jobs:
           images: registry.digitalocean.com/vatsim-containers/moodle
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
-            type=sha
+            type=sha,priority=300,prefix=
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
