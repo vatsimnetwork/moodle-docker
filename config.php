@@ -12,7 +12,7 @@ $CFG = new stdClass();
  * Database configuration
  */
 
-$CFG->dbtype = 'mysqli';
+$CFG->dbtype = getenv('DB_TYPE') ?: 'mysqli';
 $CFG->dblibrary = 'native';
 $CFG->dbhost = getenv('DB_HOST') ?: '127.0.0.1';
 $CFG->dbname = getenv('DB_DATABASE') ?: 'moodle';
