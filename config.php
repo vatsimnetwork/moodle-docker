@@ -121,6 +121,7 @@ $CFG->session_redis_prefix = 'mdl_session_';
  */
 
 $CFG->wwwroot = getenv('WWW_ROOT') ?: 'http://localhost';
+$CFG->sslproxy = getenv('SSL_PROXY') !== false;
 
 $CFG->dataroot = getenv('DATA_ROOT') ?: '';
 $CFG->directorypermissions = 0777;

@@ -16,6 +16,7 @@ You'll also need to configure some way of running Moodle's cron job, such as a c
 ### Environment variables
 
 * `WWW_ROOT` - The URL of the Moodle instance, used for generating links in emails and other places. Defaults to `http://localhost`.
+* `SSL_PROXY` - The presence of this environment variable will enable the `sslproxy` setting in Moodle.
 * `DB_HOST` - The hostname of the database server. Defaults to `127.0.0.1`.
 * `DB_PORT` - The port of the database server. Defaults to `3306`.
 * `DB_DATABASE` - The name of the database to use. Defaults to `moodle`.
