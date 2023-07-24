@@ -130,7 +130,6 @@ $CFG->directorypermissions = 0777;
  * Administration configuration
  */
 
-$CFG->siteadmins = getenv('SITE_ADMINS') ?: null;
 $CFG->alternative_component_cache = __DIR__ . '/core_component.php';
 $CFG->upgradekey = getenv('UPGRADE_KEY') ?: null;
 $CFG->disableupdateautodeploy = true;
