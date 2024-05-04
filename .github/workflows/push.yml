@@ -16,7 +16,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: registry.digitalocean.com/tpc-master/moodle-ptd
+          images: registry.digitalocean.com/tpc-master/moodle-ptd.yaml
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=sha,priority=300,prefix=

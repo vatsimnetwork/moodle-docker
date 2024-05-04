@@ -2,7 +2,7 @@ apiVersion: gateway.solo.io/v1
 kind: VirtualService
 metadata:
   name: web-ssl
-  namespace: moodle
+  namespace: ptdmoodle
 spec:
   virtualHost:
     domains:
