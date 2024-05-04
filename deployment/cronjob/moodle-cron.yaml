@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: moodle-cron
+  namespace: moodle
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          # Cron needs to run on the same node as the web server
+          # in order to have access to the moodledata PV
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - topologyKey: "kubernetes.io/hostname"
+                  labelSelector:
+                    matchLabels:
+                      app: web
+          containers:
+            - name: moodle
+              image: registry.digitalocean.com/tpc-master/moodle:61018eb
+              args: ["php", "admin/cli/cron.php"]
+              envFrom:
+                - configMapRef:
+                    name: web-env
+                - secretRef:
+                    name: web-env
+              volumeMounts:
+                - mountPath: /var/www/moodledata
+                  name: moodledata
+          volumes:
+            - name: moodledata
+              persistentVolumeClaim:
+                claimName: moodledata-pvc
+          restartPolicy: Never

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: moodle
+spec:
+  selector:
+    matchLabels:
+      app: web
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: moodle
+          image: registry.digitalocean.com/tpc-master/moodle:61018eb
+          envFrom:
+            - configMapRef:
+                name: web-env
+            - secretRef:
+                name: web-env
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /tmp/local-cache-file
+              name: local-cache
+            - mountPath: /var/www/moodledata
+              name: moodledata
+      securityContext:
+        fsGroup: 33
+      volumes:
+        - name: local-cache
+          emptyDir:
+            medium: Memory
+        - name: moodledata
+          persistentVolumeClaim:
+            claimName: moodledata-pvc

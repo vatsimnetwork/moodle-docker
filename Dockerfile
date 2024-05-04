@@ -8,7 +8,7 @@ ARG MOODLE_TOOL_FORCEDCACHE_COMMIT=7f7e90b
 # Install PHP extensions
 RUN set -ex \
     && apt-get update \
-    && apt-get install --no-install-recommends -y git libfreetype6 libfreetype6-dev libjpeg62-turbo libjpeg62-turbo-dev libpng16-16 libpng-dev libwebp6 libwebp-dev libxml2-dev libxslt1.1 libxslt-dev libzip-dev unzip uuid-dev \
+    && apt-get install --no-install-recommends -y git libfreetype6 libfreetype6-dev libjpeg62-turbo libjpeg62-turbo-dev libpng16-16 libpng-dev libwebp6 libwebp-dev libxml2-dev libxslt1.1 libxslt-dev libzip-dev unzip uuid-dev pdftk \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-configure zip --with-zip \
     && docker-php-ext-install -j$(nproc) exif gd intl mysqli opcache soap xsl zip \
@@ -26,6 +26,8 @@ RUN set -ex \
     && curl -L https://github.com/mdjnelson/moodle-mod_customcert/archive/refs/tags/${MOODLE_MOD_CUSTOMCERT_TAG}.tar.gz | tar -C /var/www/html/mod/customcert --strip-components=1 -xz \
     && mkdir -p /var/www/html/admin/tool/forcedcache \
     && curl -L https://github.com/catalyst/moodle-tool_forcedcache/archive/${MOODLE_TOOL_FORCEDCACHE_COMMIT}.tar.gz | tar -C /var/www/html/admin/tool/forcedcache --strip-components=1 -xz \
+    && mkdir -p /var/www/html/mod/booking \
+    && git clone https://github.com/bavirtual/session-booking.git | tar -C /var/www/html/mod/booking --strip-components=1 -xz \
     && chown -R www-data:www-data /var/www/html
 
 # Apply page_compression.patch (MDL-69196)

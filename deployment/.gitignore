@@ -1,0 +1,3 @@
+secrets.yml
+/web/secret.yaml
+/web/configmap.yaml

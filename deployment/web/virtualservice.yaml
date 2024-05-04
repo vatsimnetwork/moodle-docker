@@ -1,0 +1,21 @@
+apiVersion: gateway.solo.io/v1
+kind: VirtualService
+metadata:
+  name: web-ssl
+  namespace: moodle
+spec:
+  virtualHost:
+    domains:
+      - flightschool.thepilotclub.org
+    routes:
+      - matchers:
+          - prefix: /
+        routeAction:
+          single:
+            upstream:
+              name: moodle-web-80
+              namespace: gloo-system
+  sslConfig:
+    secretRef:
+      name: cf-ssl
+      namespace: gloo-system
