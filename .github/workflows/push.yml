@@ -40,6 +40,9 @@ jobs:
         with:
           app-id: ${{ vars.VATSIM_GHA_APP_ID }}
           private-key: ${{ secrets.VATSIM_GHA_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: |
+            moodle-theme_klassroom
 
       - name: Build and push
         uses: docker/build-push-action@v4
