@@ -4,6 +4,7 @@ ARG MOODLE_LMS_TAG=v4.3.5
 ARG MOODLE_ATTO_MOREFONTCOLORS_TAG=2021062100
 ARG MOODLE_LOCAL_BOOKING_COMMIT=790315c
 ARG MOODLE_MOD_CUSTOMCERT_TAG=v4.3.1
+ARG MOODLE_THEME_KLASSROOM_COMMIT=36fd649
 ARG MOODLE_TOOL_FORCEDCACHE_COMMIT=7f7e90b
 
 # Install PHP extensions
@@ -19,7 +20,8 @@ RUN set -ex \
     && rm -rf /tmp/pear /var/lib/apt/lists/*
 
 # Install Moodle
-RUN set -ex \
+RUN --mount=type=secret,id=github-token \
+    set -ex \
     && curl -L https://github.com/moodle/moodle/archive/refs/tags/${MOODLE_LMS_TAG}.tar.gz | tar -C /var/www/html --strip-components=1 -xz \
     && mkdir -p /var/www/html/lib/editor/atto/plugins/morefontcolors \
     && curl -L https://github.com/ndunand/moodle-atto_morefontcolors/archive/refs/tags/${MOODLE_ATTO_MOREFONTCOLORS_TAG}.tar.gz | tar -C /var/www/html/lib/editor/atto/plugins/morefontcolors --strip-components=1 -xz \
@@ -27,6 +29,10 @@ RUN set -ex \
     && curl -L https://github.com/vatsimnetwork/moodle-local_booking/archive/${MOODLE_LOCAL_BOOKING_COMMIT}.tar.gz | tar -C /var/www/html/local/booking --strip-components=1 -xz \
     && mkdir -p /var/www/html/mod/customcert \
     && curl -L https://github.com/mdjnelson/moodle-mod_customcert/archive/refs/tags/${MOODLE_MOD_CUSTOMCERT_TAG}.tar.gz | tar -C /var/www/html/mod/customcert --strip-components=1 -xz \
+    && mkdir -p /var/www/html/theme/klassroom \
+    && set +x \
+    && curl -L -H "Authorization: Bearer $(cat /run/secrets/github-token)" https://api.github.com/repos/vatsimnetwork/moodle-theme_klassroom/tarball/${MOODLE_THEME_KLASSROOM_COMMIT} | tar -C /var/www/html/theme/klassroom --strip-components=1 -xz \
+    && set -x \
     && mkdir -p /var/www/html/admin/tool/forcedcache \
     && curl -L https://github.com/catalyst/moodle-tool_forcedcache/archive/${MOODLE_TOOL_FORCEDCACHE_COMMIT}.tar.gz | tar -C /var/www/html/admin/tool/forcedcache --strip-components=1 -xz \
     && chown -R www-data:www-data /var/www/html
