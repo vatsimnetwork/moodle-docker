@@ -12,13 +12,13 @@ ARG MOODLE_TOOL_FORCEDCACHE_COMMIT=7f7e90b
 # Install PHP extensions
 RUN set -ex \
     && apt-get update \
-    && apt-get install --no-install-recommends -y git libfreetype6 libfreetype6-dev libjpeg62-turbo libjpeg62-turbo-dev libpng16-16 libpng-dev libwebp6 libwebp-dev libxml2-dev libxslt1.1 libxslt-dev libzip-dev unzip uuid-dev \
+    && apt-get install --no-install-recommends -y git libfreetype6 libfreetype6-dev libjpeg62-turbo libjpeg62-turbo-dev libpng16-16 libpng-dev libpq5 libpq-dev libwebp6 libwebp-dev libxml2-dev libxslt1.1 libxslt-dev libzip-dev unzip uuid-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-configure zip --with-zip \
-    && docker-php-ext-install -j$(nproc) exif gd intl mysqli opcache soap xsl zip \
+    && docker-php-ext-install -j$(nproc) exif gd intl mysqli opcache pgsql soap xsl zip \
     && pecl install apcu-5.1.23 redis-6.0.2 timezonedb-2023.3 uuid-1.2.0 \
     && docker-php-ext-enable apcu redis timezonedb uuid \
-    && apt-get purge -y --auto-remove git libfreetype6-dev libjpeg62-turbo-dev libpng-dev libwebp-dev libxml2-dev libxslt-dev uuid-dev \
+    && apt-get purge -y --auto-remove git libfreetype6-dev libjpeg62-turbo-dev libpng-dev libpq-dev libwebp-dev libxml2-dev libxslt-dev uuid-dev \
     && rm -rf /tmp/pear /var/lib/apt/lists/*
 
 # Install Moodle

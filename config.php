@@ -23,8 +23,11 @@ $CFG->dboptions = [
     'dbpersist' => 0,
     'dbport' => intval(getenv('DB_PORT') ?: 3306),
     'dbsocket' => getenv('DB_SOCKET') ?: '',
-    'dbcollation' => 'utf8mb4_unicode_ci',
 ];
+
+if ($CFG->dbtype === 'mysqli' || $CFG->dbtype === 'mariadb') {
+    $CFG->dboptions['dbcollation'] = 'utf8mb4_unicode_ci';
+}
 
 /*
  * Redis cache / session store configuration
@@ -124,6 +127,7 @@ $CFG->wwwroot = getenv('WWW_ROOT') ?: 'http://localhost';
 $CFG->sslproxy = getenv('SSL_PROXY') !== false;
 
 $CFG->dataroot = getenv('DATA_ROOT') ?: '';
+$CFG->localcachedir = getenv('LOCAL_CACHE_DIR') ?: null;
 $CFG->directorypermissions = 0777;
 
 /*
