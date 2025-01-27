@@ -38,6 +38,12 @@ const COMPONENTS = [
         'directory' => 'mod/customcert',
     ],
     [
+        'repo' => 'h5p/moodle-mod_hvp',
+        'commit' => 'e0255812be2c4b74dae34650da79dc945cdb6b80',
+        'directory' => 'mod/hvp',
+        'submodules' => true,
+    ],
+    [
         'repo' => 'vatsimnetwork/moodle-theme_klassroom',
         'commit' => '36fd649cd5305857bcb77ceba8ffb0ee75703841',
         'directory' => 'theme/klassroom',

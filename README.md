@@ -10,6 +10,7 @@ It is based on the official PHP+Apache image and includes the following:
 * [local_booking](https://github.com/vatsimnetwork/moodle-local_booking) plugin
 * [local_vatsim](https://github.com/vatsimnetwork/moodle-local_vatsim) plugin
 * [mod_customcert](https://moodle.org/plugins/mod_customcert) plugin
+* [mod_hvp](https://moodle.org/plugins/mod_hvp) plugin
 * [theme_klassroom](https://themeforest.net/item/klassroom-premium-moodle-theme/21751319) theme
 * [tool_forcedcache](https://moodle.org/plugins/tool_forcedcache) plugin
 
