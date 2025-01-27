@@ -1,0 +1,118 @@
+#!/usr/bin/env php
+<?php
+
+const COMPONENTS = [
+    [
+        'repo' => 'moodle/moodle',
+        'tag' => 'v4.3.9',
+        'directory' => '',
+    ],
+    [
+        'repo' => 'ndunand/moodle-atto_morefontcolors',
+        'tag' => '2021062100',
+        'directory' => 'lib/editor/atto/plugins/morefontcolors',
+    ],
+    [
+        'repo' => 'ewallah/moodle-availability_coursecompleted',
+        'tag' => 'v4.4.2',
+        'directory' => 'availability/condition/coursecompleted',
+    ],
+    [
+        'repo' => 'ewallah/moodle-enrol_coursecompleted',
+        'tag' => 'v4.2.5',
+        'directory' => 'enrol/coursecompleted',
+    ],
+    [
+        'repo' => 'vatsimnetwork/moodle-local_booking',
+        'commit' => '790315c189b0176e29ea794ddb0ee1bbd2c62320',
+        'directory' => 'local/booking',
+    ],
+    [
+        'repo' => 'vatsimnetwork/moodle-local_vatsim',
+        'commit' => '4a04ca83a46c6b7c1d61028ef9ea2074f50a7c8e',
+        'directory' => 'local/vatsim',
+    ],
+    [
+        'repo' => 'mdjnelson/moodle-mod_customcert',
+        'tag' => 'v4.3.3',
+        'directory' => 'mod/customcert',
+    ],
+    [
+        'repo' => 'vatsimnetwork/moodle-theme_klassroom',
+        'commit' => '36fd649cd5305857bcb77ceba8ffb0ee75703841',
+        'directory' => 'theme/klassroom',
+    ],
+    [
+        'repo' => 'catalyst/moodle-tool_forcedcache',
+        'commit' => '7f7e90b3ceef6dffae9c62c6ab3d4889278a9434',
+        'directory' => 'admin/tool/forcedcache',
+    ],
+];
+
+function getGithubToken(): string
+{
+    $filename = getenv('GITHUB_TOKEN_FILE');
+    if ($filename === false) {
+        throw new RuntimeException('GITHUB_TOKEN_FILE environment variable not set');
+    }
+
+    $githubToken = file_get_contents($filename);
+    if ($githubToken === false) {
+        throw new RuntimeException('Failed to read GITHUB_TOKEN_FILE');
+    }
+
+    return $githubToken;
+}
+
+function run(string $command): void
+{
+    $replacedCommand = preg_replace('/gh[pousr]_[a-zA-Z0-9]{36}/', '********', $command);
+    echo "$ $replacedCommand\n";
+
+    system($command, $status);
+    if ($status !== 0) {
+        exit($status);
+    }
+}
+
+function initRepo(string $repo, string $directory): void
+{
+    run("mkdir -p $directory");
+    run("git init $directory");
+    run("git -C $directory remote add origin $repo");
+}
+
+function checkoutRef(string $directory, string $reference, bool $hasSubmodules): void
+{
+    run("git -C $directory fetch --depth=1 origin $reference");
+    run("git -C $directory checkout FETCH_HEAD");
+    if ($hasSubmodules) {
+        run("git -C $directory submodule update --init --recursive");
+    }
+}
+
+function cleanup(string $directory, bool $hasSubmodules): void
+{
+    run("rm -rf $directory/.git");
+    if ($hasSubmodules) {
+        run("rm -rf $directory/*/.git");
+    }
+}
+
+function main(string $installDir): void
+{
+    $githubToken = getGithubToken();
+
+    foreach (COMPONENTS as $component) {
+        $repo = sprintf('https://x-access-token:%s@github.com/%s.git', $githubToken, $component['repo']);
+        $directory = sprintf('%s/%s', $installDir, $component['directory']);
+        $tagOrCommit = $component['tag'] ?? $component['commit'];
+        $hasSubmodules = $component['submodules'] ?? false;
+
+        initRepo($repo, $directory);
+        checkoutRef($directory, $tagOrCommit, $hasSubmodules);
+        cleanup($directory, $hasSubmodules);
+    }
+}
+
+main($argv[1] ?? __DIR__);
