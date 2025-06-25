@@ -23,11 +23,6 @@ const COMPONENTS = [
         'directory' => 'enrol/coursecompleted',
     ],
     [
-        'repo' => 'bavirtual/moodle-local_booking',
-        'commit' => 'cc064f4d0f4aba08017bab1defcfb743f450bafd',
-        'directory' => 'local/booking',
-    ],
-    [
         'repo' => 'vatsimnetwork/moodle-local_vatsim',
         'commit' => '4a04ca83a46c6b7c1d61028ef9ea2074f50a7c8e',
         'directory' => 'local/vatsim',
