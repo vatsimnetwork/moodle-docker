@@ -4,7 +4,7 @@
 const COMPONENTS = [
     [
         'repo' => 'moodle/moodle',
-        'tag' => 'v4.3.9',
+        'tag' => 'v4.5.5',
         'directory' => '',
     ],
     [
@@ -19,12 +19,12 @@ const COMPONENTS = [
     ],
     [
         'repo' => 'ewallah/moodle-enrol_coursecompleted',
-        'tag' => 'v4.2.5',
+        'tag' => 'v4.4.7',
         'directory' => 'enrol/coursecompleted',
     ],
     [
-        'repo' => 'vatsimnetwork/moodle-local_booking',
-        'commit' => '790315c189b0176e29ea794ddb0ee1bbd2c62320',
+        'repo' => 'bavirtual/moodle-local_booking',
+        'commit' => 'cc064f4d0f4aba08017bab1defcfb743f450bafd',
         'directory' => 'local/booking',
     ],
     [
@@ -34,7 +34,7 @@ const COMPONENTS = [
     ],
     [
         'repo' => 'mdjnelson/moodle-mod_customcert',
-        'tag' => 'v4.3.3',
+        'tag' => 'v4.4.6',
         'directory' => 'mod/customcert',
     ],
     [
@@ -45,12 +45,12 @@ const COMPONENTS = [
     ],
     [
         'repo' => 'vatsimnetwork/moodle-theme_klassroom',
-        'commit' => '36fd649cd5305857bcb77ceba8ffb0ee75703841',
+        'commit' => '16342a338f81eb049105ace42a5c5eb2ecbcb314',
         'directory' => 'theme/klassroom',
     ],
     [
         'repo' => 'catalyst/moodle-tool_forcedcache',
-        'commit' => '7f7e90b3ceef6dffae9c62c6ab3d4889278a9434',
+        'commit' => 'a8ee9d60cfaae641ec32d93c9c2e43f39c4a9e89',
         'directory' => 'admin/tool/forcedcache',
     ],
 ];

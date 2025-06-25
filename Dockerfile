@@ -1,4 +1,4 @@
-FROM php:8.2-apache-bullseye
+FROM php:8.3-apache-bullseye
 
 # Install PHP extensions
 RUN set -ex \
@@ -7,7 +7,7 @@ RUN set -ex \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-configure zip --with-zip \
     && docker-php-ext-install -j$(nproc) exif gd intl mysqli opcache pgsql soap xsl zip \
-    && pecl install apcu-5.1.23 redis-6.0.2 timezonedb-2023.3 uuid-1.2.0 \
+    && pecl install apcu-5.1.24 redis-6.2.0 timezonedb-2025.2 uuid-1.3.0 \
     && docker-php-ext-enable apcu redis timezonedb uuid \
     && apt-get purge -y --auto-remove libfreetype6-dev libjpeg62-turbo-dev libpng-dev libpq-dev libwebp-dev libxml2-dev libxslt-dev uuid-dev \
     && rm -rf /tmp/pear /var/lib/apt/lists/*

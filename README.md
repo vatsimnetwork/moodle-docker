@@ -7,7 +7,7 @@ It is based on the official PHP+Apache image and includes the following:
 * [atto_morefontcolors](https://moodle.org/plugins/atto_morefontcolors) plugin
 * [availability_coursecompleted](https://moodle.org/plugins/availability_coursecompleted) plugin
 * [enrol_coursecompleted](https://moodle.org/plugins/enrol_coursecompleted) plugin
-* [local_booking](https://github.com/vatsimnetwork/moodle-local_booking) plugin
+* [local_booking](https://github.com/bavirtual/moodle-local_booking) plugin
 * [local_vatsim](https://github.com/vatsimnetwork/moodle-local_vatsim) plugin
 * [mod_customcert](https://moodle.org/plugins/mod_customcert) plugin
 * [mod_hvp](https://moodle.org/plugins/mod_hvp) plugin
