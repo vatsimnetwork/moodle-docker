@@ -24,7 +24,7 @@ const COMPONENTS = [
     ],
     [
         'repo' => 'vatsimnetwork/moodle-local_vatsim',
-        'commit' => '4a04ca83a46c6b7c1d61028ef9ea2074f50a7c8e',
+        'commit' => '7e937796c07b704977380abafb8d2eaf37409089',
         'directory' => 'local/vatsim',
     ],
     [
