@@ -4,7 +4,7 @@
 const COMPONENTS = [
     [
         'repo' => 'moodle/moodle',
-        'tag' => 'v4.5.5',
+        'tag' => 'v4.5.6',
         'directory' => '',
     ],
     [
