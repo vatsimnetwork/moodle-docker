@@ -1,4 +1,4 @@
-FROM php:8.3-apache-bullseye
+FROM php:8.3-apache-trixie
 
 # Install PHP extensions
 RUN set -ex \
