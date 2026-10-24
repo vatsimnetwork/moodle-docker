@@ -9,7 +9,7 @@ RUN set -ex \
     && docker-php-ext-install -j$(nproc) exif gd intl mysqli opcache pgsql soap xsl zip \
     && pecl install apcu-5.1.24 redis-6.2.0 timezonedb-2025.2 uuid-1.3.0 \
     && docker-php-ext-enable apcu redis timezonedb uuid \
-    && apt-get purge -y --auto-remove libfreetype6-dev libjpeg62-turbo-dev libpng-dev libpq-dev libwebp-dev libxml2-dev libxslt-dev uuid-dev libicu-dev \
+    && apt-get purge -y --auto-remove libfreetype6-dev libjpeg62-turbo-dev libpng-dev libpq-dev libwebp-dev libxml2-dev libxslt-dev uuid-dev \
     && rm -rf /tmp/pear /var/lib/apt/lists/
 
 # Install Moodle
