@@ -3,14 +3,14 @@ FROM php:8.3-apache-trixie
 # Install PHP extensions
 RUN set -ex \
     && apt-get update \
-    && apt-get install --no-install-recommends -y git libfreetype6 libfreetype6-dev libjpeg62-turbo libjpeg62-turbo-dev libpng16-16 libpng-dev libpq5 libpq-dev libwebp6 libwebp-dev libxml2-dev libxslt1.1 libxslt-dev libzip-dev unzip uuid-dev \
+    && apt-get install --no-install-recommends -y git libfreetype6 libfreetype6-dev libjpeg62-turbo libjpeg62-turbo-dev libpng16-16 libpng-dev libpq5 libpq-dev libwebp7 libwebp-dev libxml2-dev libxslt1.1 libxslt-dev libzip-dev unzip uuid-dev libicu-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-configure zip --with-zip \
     && docker-php-ext-install -j$(nproc) exif gd intl mysqli opcache pgsql soap xsl zip \
     && pecl install apcu-5.1.24 redis-6.2.0 timezonedb-2025.2 uuid-1.3.0 \
     && docker-php-ext-enable apcu redis timezonedb uuid \
-    && apt-get purge -y --auto-remove libfreetype6-dev libjpeg62-turbo-dev libpng-dev libpq-dev libwebp-dev libxml2-dev libxslt-dev uuid-dev \
-    && rm -rf /tmp/pear /var/lib/apt/lists/*
+    && apt-get purge -y --auto-remove libfreetype6-dev libjpeg62-turbo-dev libpng-dev libpq-dev libwebp-dev libxml2-dev libxslt-dev uuid-dev libicu-dev \
+    && rm -rf /tmp/pear /var/lib/apt/lists/
 
 # Install Moodle
 COPY download-components /tmp/download-components
